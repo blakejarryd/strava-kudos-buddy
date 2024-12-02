@@ -6,6 +6,14 @@ class StravaAuthService {
   private redirectUri: string;
 
   constructor() {
+    // Add debugging logs
+    console.log('Environment variables:', {
+      clientId: process.env.STRAVA_CLIENT_ID,
+      redirectUri: process.env.STRAVA_REDIRECT_URI,
+      // Don't log the secret in production
+      hasSecret: !!process.env.STRAVA_CLIENT_SECRET
+    });
+
     this.clientId = process.env.STRAVA_CLIENT_ID || '';
     this.clientSecret = process.env.STRAVA_CLIENT_SECRET || '';
     this.redirectUri = process.env.STRAVA_REDIRECT_URI || '';
