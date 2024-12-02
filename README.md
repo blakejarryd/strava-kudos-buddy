@@ -6,6 +6,9 @@ A web application that allows Strava users to analyze and compare kudos interact
 
 - Strava OAuth Authentication
 - Kudos comparison analytics
+  - Track kudos given and received
+  - View detailed activity interactions
+  - Historical comparison data
 - Interactive visualization of kudos interactions
 - Athlete search functionality
 
@@ -17,10 +20,12 @@ A web application that allows Strava users to analyze and compare kudos interact
 - Strava API integration
 
 ### Frontend
-- React
+- React with Vite
 - TypeScript
 - Tailwind CSS
 - shadcn/ui components
+- React Router for navigation
+- Recharts for data visualization
 
 ## Getting Started
 
@@ -63,19 +68,68 @@ A web application that allows Strava users to analyze and compare kudos interact
    npm run dev
    ```
 
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a .env file:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
 ## Project Structure
 
 ```
-└── backend/
+strava-kudos-buddy/
+├── backend/
+│   ├── src/
+│   │   ├── middleware/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── types/
+│   │   └── server.ts
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── frontend/
     ├── src/
-    │   ├── middleware/
-    │   ├── routes/
-    │   ├── services/
-    │   ├── types/
-    │   └── server.ts
+    │   ├── components/
+    │   ├── context/
+    │   ├── pages/
+    │   ├── styles/
+    │   └── App.tsx
     ├── package.json
     └── tsconfig.json
 ```
+
+## API Endpoints
+
+### Authentication
+- `GET /api/auth/strava/url` - Get Strava OAuth URL
+- `GET /api/auth/strava/callback` - OAuth callback handler
+
+### Kudos Comparison
+- `GET /api/kudos/compare/:targetAthleteId` - Compare kudos with another athlete
+- `GET /api/kudos/search/athletes` - Search for athletes
+- `GET /api/kudos/athlete/:id` - Get athlete profile
+
+### Parameters for Comparison
+- `startDate` (optional) - Start date for comparison period
+- `endDate` (optional) - End date for comparison period
+- `athleteId` - Current athlete's ID
 
 ## Contributing
 
