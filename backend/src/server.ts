@@ -1,18 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import { errorHandler } from './middleware/errorHandler';
 import { requestLogger } from './middleware/logger';
 import routes from './routes';
 
-// Load environment variables - move this to top
-dotenv.config();
+// Load environment variables with absolute path
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // Add debugging log
 console.log('Server starting with environment:', {
   port: process.env.PORT,
   nodeEnv: process.env.NODE_ENV,
-  hasStravaConfig: !!process.env.STRAVA_CLIENT_ID
+  hasStravaConfig: !!process.env.STRAVA_CLIENT_ID,
+  currentDir: __dirname,
+  envPath: path.resolve(__dirname, '../.env')
 });
 
 const app = express();
