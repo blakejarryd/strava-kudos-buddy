@@ -10,7 +10,11 @@ A web application that allows Strava users to analyze and compare kudos interact
   - View detailed activity interactions
   - Historical comparison data
 - Interactive visualization of kudos interactions
+  - Bar chart comparisons
+  - Activity timeline
+  - Detailed activity lists
 - Athlete search functionality
+- Responsive design for mobile and desktop
 
 ## Tech Stack
 
@@ -85,7 +89,11 @@ A web application that allows Strava users to analyze and compare kudos interact
    cp .env.example .env
    ```
 
-4. Start the development server:
+4. Add your environment variables:
+   - `VITE_API_URL`: Your backend API URL
+   - `VITE_STRAVA_CLIENT_ID`: Your Strava Client ID
+
+5. Start the development server:
    ```bash
    npm run dev
    ```
@@ -97,9 +105,19 @@ strava-kudos-buddy/
 ├── backend/
 │   ├── src/
 │   │   ├── middleware/
+│   │   │   ├── auth.ts
+│   │   │   ├── errorHandler.ts
+│   │   │   └── logger.ts
 │   │   ├── routes/
+│   │   │   ├── auth.ts
+│   │   │   └── kudos.ts
 │   │   ├── services/
+│   │   │   ├── stravaAuth.ts
+│   │   │   ├── stravaApi.ts
+│   │   │   └── kudosComparison.ts
 │   │   ├── types/
+│   │   │   ├── kudos.ts
+│   │   │   └── strava.ts
 │   │   └── server.ts
 │   ├── package.json
 │   └── tsconfig.json
@@ -107,13 +125,34 @@ strava-kudos-buddy/
 └── frontend/
     ├── src/
     │   ├── components/
+    │   │   ├── Layout.tsx
+    │   │   ├── Navbar.tsx
+    │   │   └── ProtectedRoute.tsx
     │   ├── context/
+    │   │   └── AuthContext.tsx
     │   ├── pages/
+    │   │   ├── HomePage.tsx
+    │   │   ├── DashboardPage.tsx
+    │   │   └── ComparisonPage.tsx
     │   ├── styles/
+    │   │   └── globals.css
     │   └── App.tsx
     ├── package.json
     └── tsconfig.json
 ```
+
+## Components
+
+### Frontend Components
+- `Layout`: Main application layout with navigation
+- `Navbar`: Navigation bar with authentication status
+- `ProtectedRoute`: Route wrapper for authenticated pages
+- `AuthContext`: Global authentication state management
+
+### Pages
+- `HomePage`: Landing page with Strava login
+- `DashboardPage`: User dashboard with athlete search
+- `ComparisonPage`: Kudos comparison visualization
 
 ## API Endpoints
 
@@ -130,6 +169,14 @@ strava-kudos-buddy/
 - `startDate` (optional) - Start date for comparison period
 - `endDate` (optional) - End date for comparison period
 - `athleteId` - Current athlete's ID
+
+## Authentication Flow
+
+1. User clicks "Connect with Strava"
+2. User is redirected to Strava OAuth page
+3. After approval, Strava redirects back with auth code
+4. Backend exchanges code for access token
+5. User is authenticated and redirected to dashboard
 
 ## Contributing
 
