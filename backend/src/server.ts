@@ -5,8 +5,15 @@ import { errorHandler } from './middleware/errorHandler';
 import { requestLogger } from './middleware/logger';
 import routes from './routes';
 
-// Load environment variables
+// Load environment variables - move this to top
 dotenv.config();
+
+// Add debugging log
+console.log('Server starting with environment:', {
+  port: process.env.PORT,
+  nodeEnv: process.env.NODE_ENV,
+  hasStravaConfig: !!process.env.STRAVA_CLIENT_ID
+});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
